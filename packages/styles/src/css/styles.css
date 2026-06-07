@@ -1,0 +1,162 @@
+/* https://www.realtimecolors.com/?colors=242424-f0f0f0-5a49f3-9fbdc6-8a77cf&fonts=Inter-Inter */
+
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "./shadcn.css";
+
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #ececec;
+  --foreground: #1a1a1a;
+}
+.dark {
+  --background: #1a1a1a;
+  --foreground: #ececec;
+}
+
+@layer base {
+  :root {
+    --color-primary-50: #e6ebf0;
+    --color-primary-100: #ccd6e1;
+    --color-primary-200: #99adc3;
+    --color-primary-300: #6684a5;
+    --color-primary-400: #335b87;
+    --color-primary-500: #001b39;
+    --color-primary-600: #001731;
+    --color-primary-700: #001229;
+    --color-primary-800: #000e20;
+    --color-primary-900: #000918;
+    --color-primary-950: #00050c;
+
+    --color-secondary-50: #fffdeb;
+    --color-secondary-100: #fff8c6;
+    --color-secondary-200: #fff188;
+    --color-secondary-300: #ffe349;
+    --color-secondary-400: #ffd31f;
+    --color-secondary-500: #fab50b;
+    --color-secondary-600: #dd8902;
+    --color-secondary-700: #b86105;
+    --color-secondary-800: #954b0b;
+    --color-secondary-900: #7a3e0d;
+    --color-secondary-950: #461f02;
+
+    --color-accent-50: #fbf9f8;
+    --color-accent-100: #f6f4f3;
+    --color-accent-200: #e9e2e4;
+    --color-accent-300: #dacdcf;
+    --color-accent-400: #bfabae;
+    --color-accent-500: #816367;
+    --color-accent-600: #5e4747;
+    --color-accent-700: #4a3637;
+    --color-accent-800: #2d2025;
+    --color-accent-900: #201315;
+    --color-accent-950: #0e0709;
+  }
+
+  :root.dark {
+    --color-primary-50: #e9f8ff;
+    --color-primary-100: #ceefff;
+    --color-primary-200: #a7e4ff;
+    --color-primary-300: #6bd5ff;
+    --color-primary-400: #26bcff;
+    --color-primary-500: #009fff;
+    --color-primary-600: #008eff;
+    --color-primary-700: #0081ff;
+    --color-primary-800: #006ee6;
+    --color-primary-900: #005ab3;
+    --color-primary-950: #001b39;
+
+    --color-secondary-50: #fffdeb;
+    --color-secondary-100: #fff8c6;
+    --color-secondary-200: #fff188;
+    --color-secondary-300: #ffe349;
+    --color-secondary-400: #ffd31f;
+    --color-secondary-500: #fab50b;
+    --color-secondary-600: #dd8902;
+    --color-secondary-700: #b86105;
+    --color-secondary-800: #954b0b;
+    --color-secondary-900: #7a3e0d;
+    --color-secondary-950: #461f02;
+
+    --color-accent-50: #fbf9f8;
+    --color-accent-100: #f6f4f3;
+    --color-accent-200: #e9e2e4;
+    --color-accent-300: #dacdcf;
+    --color-accent-400: #bfabae;
+    --color-accent-500: #816367;
+    --color-accent-600: #5e4747;
+    --color-accent-700: #4a3637;
+    --color-accent-800: #2d2025;
+    --color-accent-900: #201315;
+    --color-accent-950: #0e0709;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-brand-primary: "Inter" sans-serif;
+  --font-brand-secondary: "Volkhov" serif;
+
+  --breakpoint-xs: 36rem;
+  --breakpoint-2xs: 32rem;
+  --breakpoint-3xs: 28rem;
+
+  --color-primary-50: var(--color-primary-50);
+  --color-primary-100: var(--color-primary-100);
+  --color-primary-200: var(--color-primary-200);
+  --color-primary-300: var(--color-primary-300);
+  --color-primary-400: var(--color-primary-400);
+  --color-primary-500: var(--color-primary-500);
+  --color-primary-600: var(--color-primary-600);
+  --color-primary-700: var(--color-primary-700);
+  --color-primary-800: var(--color-primary-800);
+  --color-primary-900: var(--color-primary-900);
+  --color-primary-950: var(--color-primary-950);
+
+  --color-secondary-50: var(--color-secondary-50);
+  --color-secondary-100: var(--color-secondary-100);
+  --color-secondary-200: var(--color-secondary-200);
+  --color-secondary-300: var(--color-secondary-300);
+  --color-secondary-400: var(--color-secondary-400);
+  --color-secondary-500: var(--color-secondary-500);
+  --color-secondary-600: var(--color-secondary-600);
+  --color-secondary-700: var(--color-secondary-700);
+  --color-secondary-800: var(--color-secondary-800);
+  --color-secondary-900: var(--color-secondary-900);
+  --color-secondary-950: var(--color-secondary-950);
+
+  --color-accent-50: var(--color-accent-50);
+  --color-accent-100: var(--color-accent-100);
+  --color-accent-200: var(--color-accent-200);
+  --color-accent-300: var(--color-accent-300);
+  --color-accent-400: var(--color-accent-400);
+  --color-accent-500: var(--color-accent-500);
+  --color-accent-600: var(--color-accent-600);
+  --color-accent-700: var(--color-accent-700);
+  --color-accent-800: var(--color-accent-800);
+  --color-accent-900: var(--color-accent-900);
+  --color-accent-950: var(--color-accent-950);
+}
+
+@layer base {
+  /* * {
+    @apply outline outline-red-500;
+  } */
+
+  body {
+    @apply bg-background dark:bg-background dark:text-foreground font-brand-primary text-foreground min-h-svh;
+  }
+
+  main {
+    @apply grow;
+  }
+
+  button {
+    @apply cursor-pointer scroll-smooth;
+  }
+}

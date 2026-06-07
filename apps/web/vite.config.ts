@@ -1,0 +1,27 @@
+import { defineConfig } from "vite";
+import { devtools } from "@tanstack/devtools-vite";
+
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+
+import viteReact, { reactCompilerPreset } from "@vitejs/plugin-react";
+import babel from "@rolldown/plugin-babel";
+import tailwindcss from "@tailwindcss/vite";
+
+const config = defineConfig(() => {
+  return {
+    resolve: { tsconfigPaths: true },
+    plugins: [
+      devtools(),
+      tailwindcss(),
+      tanstackStart({ prerender: { enabled: true } }),
+      viteReact(),
+      babel({ presets: [reactCompilerPreset()] }),
+    ],
+
+    server: {
+      host: "0.0.0.0",
+    },
+  };
+});
+
+export default config;
