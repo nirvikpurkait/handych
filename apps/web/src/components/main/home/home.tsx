@@ -32,6 +32,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Image } from "@unpic/react";
 
 export function HeroSection({
   className,
@@ -41,13 +42,13 @@ export function HeroSection({
     <section className={cn("", className)} {...props}>
       <div
         className={cn(
-          "mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-28",
+          "mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-24",
         )}
       >
         <div>
           <div
             className={cn(
-              "border-secondary-400 text-secondary-500 dark:text-secondary-50 bg-secondary-50 inline-flex border px-4 py-2 text-sm font-medium",
+              "border-primary-400 text-primary-500 dark:text-primary-50 bg-primary-50 inline-flex border px-4 py-2 text-sm font-medium",
             )}
           >
             Professional Housekeeping Services
@@ -55,12 +56,14 @@ export function HeroSection({
 
           <h1
             className={cn(
-              "font-brand-secondary text-primary-500 dark:text-primary-50 mt-6 text-5xl leading-tight font-bold md:text-7xl",
+              "font-brand-secondary text-primary-500 dark:text-primary-50 mt-6 text-5xl leading-tight font-bold uppercase md:text-7xl",
             )}
           >
-            Clean Spaces.
+            <span>Fixing.</span>
             <br />
-            Happy Lives.
+            <span className={cn(`text-secondary-500`)}>Solving.</span>
+            <br />
+            <span>Caring.</span>
           </h1>
 
           <p className={cn("text-primary-800/70 mt-6 max-w-xl text-lg")}>
@@ -102,11 +105,9 @@ export function HeroSection({
           </div>
         </div>
 
-        <div
-          className={cn(
-            "border-secondary-400 bg-secondary-50 min-h-137.5 border",
-          )}
-        />
+        <div className={cn("min-h-100")}>
+          <Image src="/images/home-hero.png" layout="fullWidth" />
+        </div>
       </div>
     </section>
   );

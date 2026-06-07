@@ -42,3 +42,4 @@ ngrok.exe
 
 # log
 *.log
+.vercel

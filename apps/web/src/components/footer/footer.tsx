@@ -196,24 +196,33 @@ export function Footer({ className, ...props }: ComponentProps<"footer">) {
                 <span>{platformAddres}</span>
               </a>
 
-              <div className={cn("flex items-center gap-3 pt-2")}>
-                <a
-                  href={platformFacebookLink}
+              <div className={cn("pt-2")}>
+                <h4
                   className={cn(
-                    "hover:border-primary-500 hover:text-primary-500 flex size-10 items-center justify-center border border-black/10 transition-colors dark:border-white/10",
+                    "mb-5 text-sm font-bold tracking-widest uppercase",
                   )}
                 >
-                  <FaFacebook className={cn("size-4")} />
-                </a>
+                  Links
+                </h4>
+                <div className={cn(`flex items-center gap-3`)}>
+                  <a
+                    href={platformFacebookLink}
+                    className={cn(
+                      "hover:border-primary-500 hover:text-primary-500 flex size-10 items-center justify-center border border-black/10 transition-colors dark:border-white/10",
+                    )}
+                  >
+                    <FaFacebook className={cn("size-4")} />
+                  </a>
 
-                <a
-                  href={platformInstagramLink}
-                  className={cn(
-                    "hover:border-primary-500 hover:text-primary-500 flex size-10 items-center justify-center border border-black/10 transition-colors dark:border-white/10",
-                  )}
-                >
-                  <FaInstagram className={cn("size-4")} />
-                </a>
+                  <a
+                    href={platformInstagramLink}
+                    className={cn(
+                      "hover:border-primary-500 hover:text-primary-500 flex size-10 items-center justify-center border border-black/10 transition-colors dark:border-white/10",
+                    )}
+                  >
+                    <FaInstagram className={cn("size-4")} />
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -226,20 +235,15 @@ export function Footer({ className, ...props }: ComponentProps<"footer">) {
           )}
         >
           <p>© {new Date().getFullYear()} Handych. All rights reserved.</p>
-
-          <div className={cn("flex flex-wrap items-center gap-5")}>
-            <Link to="/" className={cn("hover:text-primary-500")}>
-              Privacy Policy
-            </Link>
-
-            <Link to="/" className={cn("hover:text-primary-500")}>
-              Terms of Service
-            </Link>
-
-            <Link to="/" className={cn("hover:text-primary-500")}>
-              Cookie Policy
-            </Link>
-          </div>
+          <p>
+            Developed and maintained by{" "}
+            <a
+              href="https://github.com/nirvikpurkait"
+              className={cn(`underline`)}
+            >
+              Nirvik Purkait
+            </a>
+          </p>
         </div>
       </div>
     </footer>

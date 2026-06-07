@@ -1,42 +1,37 @@
-name: Deploy web
+name: Deploy to Vercel
 
 on:
   push:
     branches:
       - main
-    paths:
-      - "apps/web/**"
-      - "!apps/web/**/*.stories.tsx"
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    env:
+      VERCEL_TOKEN: ${{secrets.VERCEL_TOKEN}}
+      VERCEL_PROJECT_ID: ${{secrets.VERCEL_PROJECT_ID}}
+      VERCEL_ORG_ID: ${{secrets.VERCEL_ORG_ID}}
+      TURBO_TEAM: ${{secrets.TURBO_TEAM}}
+      TURBO_TOKEN: ${{secrets.TURBO_TOKEN}}
+
     steps:
-      # 1. Checkout the repository
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - uses: pnpm/action-setup@v4
         with:
-          node-version: "22"
+          version: 10
 
-      - name: Install pnpm
-        run: npm install pnpm -g
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Build Web app
-        run: pnpm run build --filter web
-
-      - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+      - uses: actions/setup-node@v4
         with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: ${{ secrets.FTP_PATH }}
-          local-dir: apps/web/dist/client
-          log-level: standard
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install
+
+      - run: pnpm exec turbo run build --filter web
+
+      - run: |
+          pnpm exec vercel deploy apps/web/dist/client --prod \
+            --token=$VERCEL_TOKEN

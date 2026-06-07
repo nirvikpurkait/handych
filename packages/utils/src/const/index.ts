@@ -1,11 +1,12 @@
-export const platformMobileNo = "7975275096";
+export const platformMobileNo = "6290318268";
 
 export const platformSupportEmail = "support@handych.in";
 
-export const platformAddres = "Some address";
+export const platformAddres = "B5, Block B, Kalyani, West Bengal";
 
-export const platformLocation = "Some google location";
+export const platformLocation = "https://maps.app.goo.gl/y5Ajc97xVcB7NQXB9";
 
-export const platformFacebookLink = "Some google location";
+export const platformFacebookLink =
+  "https://www.facebook.com/profile.php?id=61590416371399";
 
-export const platformInstagramLink = "Some google location";
+export const platformInstagramLink = "https://www.instagram.com/handych_";
