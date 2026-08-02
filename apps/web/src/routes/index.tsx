@@ -1,35 +1,28 @@
 import {
-  CTASection,
-  FAQSection,
   HeroSection,
-  HowItWorksSection,
-  ServicesSection,
-  TestimonialsSection,
-  WhyChooseUsSection,
+  // OurFounders,
+  OurService,
+  WhyTrustHanych,
 } from "@/components/main/home/home";
-import { Stats } from "@/components/main/stats";
-import { cn } from "@repo/styles/cn";
 import { createFileRoute } from "@tanstack/react-router";
+import { OurPurpose } from "../components/main/home/home";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
 
   head: () => ({
-    meta: [{ title: "Handych | Home" }],
+    meta: [{ title: "Handych" }],
   }),
 });
 
 function RouteComponent() {
   return (
-    <main className={cn(``)}>
+    <main>
       <HeroSection />
-      <Stats />
-      <ServicesSection />
-      <WhyChooseUsSection />
-      <HowItWorksSection />
-      <FAQSection />
-      <TestimonialsSection />
-      <CTASection />
+      <OurService />
+      <WhyTrustHanych />
+      {/* <OurFounders /> */}
+      <OurPurpose />
     </main>
   );
 }

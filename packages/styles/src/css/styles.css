@@ -13,7 +13,7 @@
   --foreground: #1a1a1a;
 }
 .dark {
-  --background: #1a1a1a;
+  --background: #001027;
   --foreground: #ececec;
 }
 
@@ -57,17 +57,17 @@
   }
 
   :root.dark {
-    --color-primary-50: #e9f8ff;
-    --color-primary-100: #ceefff;
-    --color-primary-200: #a7e4ff;
-    --color-primary-300: #6bd5ff;
-    --color-primary-400: #26bcff;
-    --color-primary-500: #009fff;
-    --color-primary-600: #008eff;
-    --color-primary-700: #0081ff;
-    --color-primary-800: #006ee6;
-    --color-primary-900: #005ab3;
-    --color-primary-950: #001b39;
+    --color-primary-50: #e6ebf0;
+    --color-primary-100: #ccd6e1;
+    --color-primary-200: #99adc3;
+    --color-primary-300: #6684a5;
+    --color-primary-400: #335b87;
+    --color-primary-500: #001b39;
+    --color-primary-600: #001731;
+    --color-primary-700: #001229;
+    --color-primary-800: #000e20;
+    --color-primary-900: #000918;
+    --color-primary-950: #00050c;
 
     --color-secondary-50: #fffdeb;
     --color-secondary-100: #fff8c6;
@@ -99,8 +99,8 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  --font-brand-primary: "Inter" sans-serif;
-  --font-brand-secondary: "Volkhov" serif;
+  --font-brand-primary: "Poppins", sans-serif;
+  --font-brand-secondary: "Playwrite NZ", cursive;
 
   --breakpoint-xs: 36rem;
   --breakpoint-2xs: 32rem;

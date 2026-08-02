@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "tf run dev:app --port 3000",
+    "dev": "tf run dev:app --port 3000 --open",
     "build": "tf run build:app",
     "serve": "http-server ./dist/client -p 9900",
     "preview": "vite preview",

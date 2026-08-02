@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Phone, Mail, MapPin, ArrowUpRight } from "lucide-react";
+import type { LinkProps } from "@tanstack/react-router";
+import { Phone, Mail, MapPin } from "lucide-react";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { cn } from "@repo/styles/cn";
 import type { ComponentProps } from "react";
@@ -12,35 +13,40 @@ import {
   platformMobileNo,
   platformSupportEmail,
 } from "@repo/utils/const";
+import { offeredServices, upcomingServices } from "@repo/data";
 
 export function Footer({ className, ...props }: ComponentProps<"footer">) {
   const navigationItems = [
     {
       label: "Home",
-      href: "/",
+      to: "/",
+      hash: "",
     },
     {
       label: "Services",
-      href: "/service",
+      to: "/",
+      hash: "services",
+    },
+    {
+      label: "Why Handych",
+      to: "/",
+      hash: "why-handych",
     },
     {
       label: "About",
-      href: "/about",
+      to: "/",
+      hash: "about",
     },
     {
-      label: "Contact",
-      href: "/contact",
+      label: "Our Purpose",
+      to: "/",
+      hash: "our-purpose",
     },
-  ];
-
-  const serviceItems = [
-    "Housekeeping",
-    "Deep Cleaning",
-    "Office Cleaning",
-    "Kitchen Cleaning",
-    "Bathroom Cleaning",
-    "Move In / Move Out Cleaning",
-  ];
+  ] satisfies {
+    label: string;
+    to: LinkProps["to"];
+    hash?: LinkProps["hash"];
+  }[];
 
   return (
     <footer
@@ -51,49 +57,8 @@ export function Footer({ className, ...props }: ComponentProps<"footer">) {
       {...props}
     >
       <div className={cn("mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8")}>
-        {/* Top CTA */}
-        <div
-          className={cn(
-            "border-primary-200 bg-primary-50 dark:border-primary-900 dark:bg-primary-950 mb-14 flex flex-col gap-8 border p-8 lg:flex-row lg:items-center lg:justify-between",
-          )}
-        >
-          <div>
-            <p
-              className={cn(
-                "text-primary-600 mb-2 text-sm font-semibold tracking-widest uppercase",
-              )}
-            >
-              Ready To Get Started?
-            </p>
-
-            <h2
-              className={cn(
-                "font-brand-secondary text-3xl font-bold sm:text-4xl",
-              )}
-            >
-              Professional Housekeeping,
-              <br />
-              Just One Click Away.
-            </h2>
-          </div>
-
-          <Link
-            to="/contact"
-            className={cn(
-              "bg-primary-500 hover:bg-primary-600 inline-flex items-center justify-center gap-2 px-6 py-4 text-sm font-semibold text-white transition-colors",
-            )}
-          >
-            Book A Service
-            <ArrowUpRight className={cn("size-4")} />
-          </Link>
-        </div>
-
         {/* Main Footer */}
-        <div
-          className={cn(
-            "grid gap-10 border-b border-black/10 pb-12 md:grid-cols-2 lg:grid-cols-4 dark:border-white/10",
-          )}
-        >
+        <div className={cn("grid gap-10 md:grid-cols-2 lg:grid-cols-4")}>
           {/* Brand */}
           <div>
             <Link
@@ -114,46 +79,105 @@ export function Footer({ className, ...props }: ComponentProps<"footer">) {
             </p>
           </div>
 
-          {/* Navigation */}
           <div>
-            <h4
-              className={cn("mb-5 text-sm font-bold tracking-widest uppercase")}
-            >
-              Navigation
-            </h4>
+            {/* Navigation */}
+            <div>
+              <h4
+                className={cn(
+                  "mb-5 text-sm font-bold tracking-widest uppercase",
+                )}
+              >
+                Navigation
+              </h4>
 
-            <div className={cn("flex flex-col gap-3")}>
-              {navigationItems.map((item) => (
-                <Link
-                  key={item.label}
-                  to={item.href}
+              <div className={cn("flex flex-col gap-3")}>
+                {navigationItems.map((item) => (
+                  <Link
+                    key={item.label}
+                    to={item.to}
+                    hash={item.hash}
+                    className={cn(
+                      "text-foreground/70 hover:text-secondary-500 w-fit text-sm transition-colors",
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Links */}
+            <div className={cn("pt-4")}>
+              <h4
+                className={cn(
+                  "mb-5 text-sm font-bold tracking-widest uppercase",
+                )}
+              >
+                Links
+              </h4>
+              <div className={cn(`flex items-center gap-3`)}>
+                <a
+                  href={platformFacebookLink}
                   className={cn(
-                    "text-foreground/70 hover:text-primary-500 w-fit text-sm transition-colors",
+                    "hover:border-primary-500 hover:text-primary-500 flex size-10 items-center justify-center border border-black/10 transition-colors dark:border-white/10",
                   )}
                 >
-                  {item.label}
-                </Link>
-              ))}
+                  <FaFacebook className={cn("size-4")} />
+                </a>
+
+                <a
+                  href={platformInstagramLink}
+                  className={cn(
+                    "hover:border-primary-500 hover:text-primary-500 flex size-10 items-center justify-center border border-black/10 transition-colors dark:border-white/10",
+                  )}
+                >
+                  <FaInstagram className={cn("size-4")} />
+                </a>
+              </div>
             </div>
           </div>
 
           {/* Services */}
-          <div>
-            <h4
-              className={cn("mb-5 text-sm font-bold tracking-widest uppercase")}
-            >
-              Services
-            </h4>
+          <div className={cn(`space-y-6`)}>
+            <div>
+              <h4
+                className={cn(
+                  "mb-5 text-sm font-bold tracking-widest uppercase",
+                )}
+              >
+                Services
+              </h4>
 
-            <div className={cn("flex flex-col gap-3")}>
-              {serviceItems.map((service) => (
-                <span
-                  key={service}
-                  className={cn("text-foreground/70 text-sm")}
-                >
-                  {service}
-                </span>
-              ))}
+              <div className={cn("flex flex-col gap-3")}>
+                {offeredServices.map(({ serviceName: service }) => (
+                  <span
+                    key={service}
+                    className={cn("text-foreground/70 text-sm")}
+                  >
+                    {service}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h4
+                className={cn(
+                  "mb-5 text-sm font-bold tracking-widest uppercase",
+                )}
+              >
+                More services
+              </h4>
+
+              <div className={cn("flex flex-col gap-3")}>
+                {upcomingServices.map(({ serviceName: service }) => (
+                  <span
+                    key={service}
+                    className={cn("text-foreground/70 text-sm")}
+                  >
+                    {service}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -196,36 +220,26 @@ export function Footer({ className, ...props }: ComponentProps<"footer">) {
                 <span>{platformAddres}</span>
               </a>
 
-              <div className={cn("pt-2")}>
-                <h4
-                  className={cn(
-                    "mb-5 text-sm font-bold tracking-widest uppercase",
-                  )}
-                >
-                  Links
-                </h4>
-                <div className={cn(`flex items-center gap-3`)}>
-                  <a
-                    href={platformFacebookLink}
-                    className={cn(
-                      "hover:border-primary-500 hover:text-primary-500 flex size-10 items-center justify-center border border-black/10 transition-colors dark:border-white/10",
-                    )}
-                  >
-                    <FaFacebook className={cn("size-4")} />
-                  </a>
-
-                  <a
-                    href={platformInstagramLink}
-                    className={cn(
-                      "hover:border-primary-500 hover:text-primary-500 flex size-10 items-center justify-center border border-black/10 transition-colors dark:border-white/10",
-                    )}
-                  >
-                    <FaInstagram className={cn("size-4")} />
-                  </a>
-                </div>
+              <div className={cn(`size-40`)}>
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3324.0291018669686!2d88.43244467790743!3d22.980707864288973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f895a72348aca1%3A0xa838fa4bf478cef0!2sHandyCh!5e1!3m2!1sen!2sin!4v1784833197001!5m2!1sen!2sin"
+                  loading="lazy"
+                />
               </div>
             </div>
           </div>
+        </div>
+
+        <div
+          className={cn(`border-b border-black/10 py-12 dark:border-white/10`)}
+        >
+          <h2
+            className={cn(
+              `text-secondary-500 font-brand-secondary text-center text-lg`,
+            )}
+          >
+            Caring for better living.
+          </h2>
         </div>
 
         {/* Bottom */}

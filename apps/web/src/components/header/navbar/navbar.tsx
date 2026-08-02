@@ -1,38 +1,47 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import type { LinkProps } from "@tanstack/react-router";
-import { Menu, X, Phone, ChevronRight } from "lucide-react";
+import { Menu, X, ChevronRight } from "lucide-react";
 import { cn } from "@repo/styles/cn";
 import { LogoIcon, LogoText } from "@repo/ui/logo";
 import { useNavbarState } from "@/hooks/use-navstate";
 import { platformMobileNo } from "@repo/utils/const";
+import { FaWhatsapp } from "react-icons/fa";
 
 const navigationItems = [
   {
     label: "Home",
     to: "/",
+    hash: "",
   },
   {
-    label: "Service",
-    to: "/service",
+    label: "Services",
+    to: "/",
+    hash: "services",
+  },
+  {
+    label: "Why Handych",
+    to: "/",
+    hash: "why-handych",
   },
   {
     label: "About",
-    to: "/about",
+    to: "/",
+    hash: "about",
   },
   {
-    label: "Contact",
-    to: "/contact",
+    label: "Our Purpose",
+    to: "/",
+    hash: "our-purpose",
   },
 ] satisfies {
   label: string;
   to: LinkProps["to"];
+  hash?: LinkProps["hash"];
 }[];
 
 export function Navbar() {
   const { isNavOpen, closeNavBar, toggleNavBar } = useNavbarState();
-  const { pathname } = useLocation();
-
-  const pathnameFirstSlot = `/${pathname.split("/")[1]}`;
+  const { hash } = useLocation();
 
   return (
     <>
@@ -63,19 +72,18 @@ export function Navbar() {
           <nav
             aria-label="Desktop navigation"
             className={cn(
-              "hidden items-center gap-1 rounded-none border border-black/10 bg-white px-2 py-2 lg:flex dark:border-white/10 dark:bg-white/5",
+              "hidden items-center gap-1 rounded-none px-2 py-2 lg:flex",
             )}
           >
             {navigationItems.map((item) => (
               <Link
                 key={item.label}
                 to={item.to}
-                className={cn(
-                  "text-foreground/70 hover:bg-primary-50 hover:text-primary-600 dark:hover:bg-primary-950 px-4 py-2 text-sm font-medium transition-all",
-                  {
-                    "bg-primary-500 text-white": pathnameFirstSlot === item.to,
-                  },
-                )}
+                hash={item.hash}
+                className={cn("px-4 py-2 text-sm font-medium transition-all", {
+                  "decoration-secondary-500 text-secondary-500 underline underline-offset-8":
+                    hash === item.hash,
+                })}
               >
                 {item.label}
               </Link>
@@ -85,13 +93,14 @@ export function Navbar() {
           {/* Desktop Actions */}
           <div className={cn("hidden items-center gap-3 lg:flex")}>
             <a
-              href={`tel:+91${platformMobileNo}`}
+              href={`https://wa.me/${platformMobileNo}`}
+              target="_blank"
               className={cn(
-                "border-primary-200 bg-primary-50 bg-primary-500 hover:bg-primary-600 dark:border-primary-900 dark:bg-primary-950 dark:text-primary-300 flex items-center gap-2 border px-4 py-3 text-sm font-semibold text-white transition-colors",
+                "dark:border-secondary-500 dark:bg-secondary-500 dark:text-primary-500 flex items-center gap-2 rounded-md border px-4 py-3 text-sm font-semibold transition-colors",
               )}
             >
-              <Phone className={cn("size-4")} />
-              +91 {platformMobileNo}
+              Book On Whatsapp
+              <FaWhatsapp className={cn("size-5")} />
             </a>
           </div>
 
@@ -101,7 +110,7 @@ export function Navbar() {
             aria-label="Toggle Menu"
             onClick={toggleNavBar}
             className={cn(
-              "flex size-11 items-center justify-center border border-black/10 bg-white lg:hidden dark:border-white/10 dark:bg-white/5",
+              "flex size-11 items-center justify-center rounded-sm border border-black/10 bg-white lg:hidden dark:border-white/10 dark:bg-white/5",
             )}
           >
             {isNavOpen ? (
@@ -171,11 +180,13 @@ export function Navbar() {
               <Link
                 key={item.label}
                 to={item.to}
+                hash={item.hash}
                 onClick={closeNavBar}
                 className={cn(
-                  "flex items-center justify-between border-b border-black/5 py-4 text-sm font-medium dark:border-white/5",
+                  "flex min-h-10 items-center justify-between text-sm font-medium",
                   {
-                    "bg-primary-500 text-white": pathnameFirstSlot === item.to,
+                    "decoration-secondary-500 text-secondary-500 underline underline-offset-8":
+                      hash === item.hash,
                   },
                 )}
               >
@@ -191,13 +202,14 @@ export function Navbar() {
             )}
           >
             <a
-              href="tel:+919999999999"
+              href={`https://wa.me/${platformMobileNo}`}
+              target="_blank"
               className={cn(
-                "border-primary-200 bg-primary-500 dark:border-primary-900 dark:bg-primary-950 dark:text-primary-300 flex w-full items-center justify-center gap-2 border px-4 py-3 font-semibold text-white",
+                "dark:border-secondary-500 dark:bg-secondary-500 dark:text-primary-500 flex items-center justify-center gap-2 rounded-md border px-4 py-3 text-sm font-semibold transition-colors",
               )}
             >
-              <Phone className={cn("size-4")} />
-              +91 98765 43210
+              Book On Whatsapp
+              <FaWhatsapp className={cn("size-5")} />
             </a>
           </div>
         </div>

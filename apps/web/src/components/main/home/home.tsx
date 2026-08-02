@@ -1,711 +1,850 @@
-import { Link } from "@tanstack/react-router";
-import type { Icon } from "lucide-react";
-import {
-  BadgeCheck,
-  Phone,
-  Sparkles,
-  CalendarDays,
-  Shield,
-  Star,
-  Wallet,
-  ArrowRight,
-  CheckCircle2,
-  Home,
-  Quote,
-} from "lucide-react";
-import { cn } from "@repo/styles/cn";
-import { useState } from "react";
+import { cn } from "@/lib/utils";
 import type { ComponentProps } from "react";
-import { platformMobileNo } from "@repo/utils/const";
-import {
-  heroItem,
-  services,
-  whyChooseUs as whyChooseUsWithoutIcon,
-  howItWorksSteps as howItWorksStepsWithoutIcon,
-  faqs,
-  testimonials,
-} from "@repo/data";
-import { LogoIcon } from "@repo/ui/logo";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { Image } from "@unpic/react";
+import { platformMobileNo } from "@repo/utils/const";
+import { FaWhatsapp } from "react-icons/fa";
+import { Link } from "@tanstack/react-router";
+import {
+  ArrowRight,
+  Shield,
+  CheckCircle,
+  DollarSign,
+  Check,
+  X,
+  ChevronRight,
+} from "lucide-react";
+import { offeredServices, upcomingServices, whyTrustHandych } from "@repo/data";
 
 export function HeroSection({
   className,
   ...props
 }: ComponentProps<"section">) {
   return (
-    <section className={cn("", className)} {...props}>
-      <div
-        className={cn(
-          "mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-24",
-        )}
-      >
-        <div>
-          <div
-            className={cn(
-              "border-primary-400 text-primary-500 dark:text-primary-50 bg-primary-50 inline-flex border px-4 py-2 text-sm font-medium",
-            )}
-          >
-            Professional Housekeeping Services
-          </div>
-
-          <h1
-            className={cn(
-              "font-brand-secondary text-primary-500 dark:text-primary-50 mt-6 text-5xl leading-tight font-bold uppercase md:text-7xl",
-            )}
-          >
-            <span>Fixing.</span>
-            <br />
-            <span className={cn(`text-secondary-500`)}>Solving.</span>
-            <br />
-            <span>Caring.</span>
-          </h1>
-
-          <p className={cn("text-primary-800/70 mt-6 max-w-xl text-lg")}>
-            Trusted housekeeping professionals for homes, offices, apartments
-            and commercial spaces.
-          </p>
-
-          <div className={cn("mt-8 flex flex-col gap-4 sm:flex-row")}>
-            <Link
-              to="/service"
-              className={cn(
-                "bg-primary-500 px-6 py-4 text-center font-semibold text-white",
-              )}
-            >
-              Book Service
-            </Link>
-
-            <a
-              href={`tel:+91${platformMobileNo}`}
-              className={cn(
-                "border-primary-500 bg-primary-50 text-primary-500 flex items-center justify-center gap-2 border px-6 py-4 font-semibold",
-              )}
-            >
-              <Phone className={cn("size-4")} />
-              Call Now
-            </a>
-          </div>
-
-          <div className={cn("mt-12 grid grid-cols-2 gap-4")}>
-            {heroItem.map(({ label }) => (
-              <div
-                key={label}
-                className={cn("text-primary-500 flex items-center gap-2")}
-              >
-                <BadgeCheck className={cn("size-4")} />
-                {label}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className={cn("min-h-100")}>
-          <Image src="/images/home-hero.png" layout="fullWidth" />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-export function ServicesSection({
-  className,
-  ...props
-}: ComponentProps<"section">) {
-  return (
-    <section className={cn("bg-primary-50 py-24", className)} {...props}>
-      <div className={cn("mx-auto max-w-7xl px-4 lg:px-8")}>
-        <h2
+    <section
+      className={cn(
+        `relative isolate grid overflow-clip md:py-20 lg:grid-cols-2`,
+        `px-4 sm:px-10 md:px-20 lg:px-24`,
+        className,
+      )}
+      id=""
+      {...props}
+    >
+      <div className={cn(`absolute inset-0 -z-1`)} aria-hidden data-bg-image>
+        <Image
+          src="/images/home-hero-lg.jpg"
+          alt=""
+          layout="fullWidth"
           className={cn(
-            "font-brand-secondary text-primary-950 text-center text-5xl font-bold",
+            `h-full w-full origin-left mask-[linear-gradient(to_right,transparent_40%,black_60%)] object-cover opacity-70`,
+          )}
+        />
+      </div>
+      <div className={cn(`space-y-4 pb-10 md:space-y-6 lg:space-y-8`)}>
+        <p
+          className={cn(
+            `text-secondary-500 border-secondary-500 inline-block rounded-full border px-4 text-sm md:text-base`,
           )}
         >
-          Our Services
-        </h2>
-
-        <div className={cn("mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3")}>
-          {services.map(({ title }) => (
-            <div
-              key={title}
-              className={cn("border-primary-200 bg-primary-100 border p-8")}
-            >
-              <Sparkles className={cn("text-primary-600 size-8")} />
-
-              <h3 className={cn("text-primary-950 mt-5 text-xl font-semibold")}>
-                {title}
-              </h3>
-
-              <p className={cn("text-primary-800 mt-3")}>
-                Professional cleaning solutions delivered by trained experts.
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-export function WhyChooseUsSection({
-  className,
-  ...props
-}: ComponentProps<"section">) {
-  const [active, setActive] = useState(0);
-
-  const icons = [
-    { icon: Shield },
-    { icon: CalendarDays },
-    { icon: Wallet },
-    { icon: Star },
-  ] satisfies {
-    icon: typeof Icon;
-  }[];
-  const whyChooseUs = whyChooseUsWithoutIcon.map((item, idx) => ({
-    ...item,
-    icon: icons[idx]?.icon ?? LogoIcon,
-  }));
-
-  const ActiveIcon = whyChooseUs[active].icon;
-
-  return (
-    <section
-      className={cn("bg-secondary-500 py-24 text-black", className)}
-      {...props}
-    >
-      <div className={cn("mx-auto max-w-7xl px-4 sm:px-6 lg:px-8")}>
-        <div className={cn("mb-16 max-w-3xl")}>
-          <span
-            className={cn(
-              "border-secondary-700 bg-secondary-200 inline-flex border px-4 py-2 text-sm font-medium",
-            )}
-          >
-            Why Customers Trust Handych
-          </span>
-
-          <h2
-            className={cn(
-              "font-brand-secondary mt-6 text-4xl font-bold md:text-6xl",
-            )}
-          >
-            Built Around Reliability,
-            <br />
-            Quality & Trust.
-          </h2>
-        </div>
-
-        <div className={cn("grid gap-8 lg:grid-cols-[1.1fr_0.9fr]")}>
-          {/* Visual Side */}
-          <div
-            className={cn(
-              "border-secondary-700 bg-secondary-200 relative overflow-hidden border p-8 lg:p-12",
-            )}
-          >
-            <div
-              className={cn(
-                "border-secondary-700 bg-secondary-100 absolute top-6 right-6 border px-4 py-3",
-              )}
-            >
-              <p className={cn("text-3xl font-black")}>5000+</p>
-
-              <p className={cn("text-sm opacity-70")}>Services Completed</p>
-            </div>
-
-            <div
-              className={cn("flex h-full min-h-112.5 flex-col justify-between")}
-            >
-              <div>
-                <ActiveIcon className={cn("text-primary-500 size-20")} />
-
-                <h3 className={cn("mt-8 text-4xl font-bold")}>
-                  {whyChooseUs[active].title}
-                </h3>
-
-                <p className={cn("mt-4 max-w-xl text-lg leading-8 opacity-80")}>
-                  {whyChooseUs[active].description}
-                </p>
-              </div>
-
-              <div className={cn("grid grid-cols-2 gap-4")}>
-                <div
-                  className={cn(
-                    "border-secondary-700 bg-secondary-100 border p-5",
-                  )}
-                >
-                  <p className={cn("text-primary-500 text-4xl font-black")}>
-                    4.9★
-                  </p>
-
-                  <p className={cn("mt-2 text-sm opacity-70")}>
-                    Average Rating
-                  </p>
-                </div>
-
-                <div
-                  className={cn(
-                    "border-secondary-700 bg-secondary-100 border p-5",
-                  )}
-                >
-                  <p className={cn("text-primary-500 text-4xl font-black")}>
-                    150+
-                  </p>
-
-                  <p className={cn("mt-2 text-sm opacity-70")}>Professionals</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Interactive Stack */}
-          <div className={cn("flex flex-col")}>
-            {whyChooseUs.map((item, index) => {
-              const Icon = item.icon;
-
-              const isActive = active === index;
-
-              return (
-                <button
-                  key={item.title}
-                  onMouseEnter={() => setActive(index)}
-                  onFocus={() => setActive(index)}
-                  onClick={() => setActive(index)}
-                  className={cn(
-                    "border-secondary-700 group border-b text-left transition-all",
-                    isActive ? "bg-secondary-200" : "hover:bg-secondary-400/60",
-                  )}
-                >
-                  <div
-                    className={cn(
-                      "flex items-center justify-between p-6 lg:p-8",
-                    )}
-                  >
-                    <div className={cn("flex items-center gap-4")}>
-                      <div
-                        className={cn(
-                          "border-secondary-700 bg-secondary-100 flex size-14 items-center justify-center border",
-                        )}
-                      >
-                        <Icon className={cn("text-primary-500 size-6")} />
-                      </div>
-
-                      <div>
-                        <h3 className={cn("text-lg font-semibold")}>
-                          {item.title}
-                        </h3>
-
-                        <p className={cn("mt-1 text-sm opacity-70")}>
-                          {item.description}
-                        </p>
-                      </div>
-                    </div>
-
-                    <ArrowRight
-                      className={cn(
-                        "size-5 transition-transform group-hover:translate-x-1",
-                        isActive ? "text-primary-500" : "opacity-50",
-                      )}
-                    />
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-export function HowItWorksSection({
-  className,
-  ...props
-}: ComponentProps<"section">) {
-  const [activeStep, setActiveStep] = useState(0);
-  const icons = [
-    { icon: Home },
-    { icon: CalendarDays },
-    { icon: Sparkles },
-    { icon: CheckCircle2 },
-  ] satisfies {
-    icon: typeof Icon;
-  }[];
-  const howItWorksSteps = howItWorksStepsWithoutIcon.map((item, idx) => ({
-    ...item,
-    icon: icons[idx]?.icon ?? LogoIcon,
-  }));
-
-  const ActiveIcon = howItWorksSteps[activeStep].icon;
-
-  return (
-    <section className={cn("bg-primary-50 py-24", className)} {...props}>
-      <div className={cn("mx-auto max-w-7xl px-4 lg:px-8")}>
-        <div className={cn("mb-16 text-center")}>
-          <span
-            className={cn(
-              "border-primary-300 bg-primary-100 text-primary-700 inline-flex border px-4 py-2 text-sm font-medium",
-            )}
-          >
-            Simple Booking Process
-          </span>
-
-          <h2
-            className={cn(
-              "font-brand-secondary text-primary-950 mt-6 text-5xl font-bold md:text-6xl",
-            )}
-          >
-            How It Works
-          </h2>
-
-          <p className={cn("text-primary-800 mx-auto mt-6 max-w-2xl text-lg")}>
-            Get professional housekeeping services in just a few simple steps.
-          </p>
-        </div>
-
-        <div className={cn("grid gap-10 lg:grid-cols-[0.8fr_1.2fr]")}>
-          {/* Active Step Preview */}
-          <div
-            className={cn(
-              "border-primary-300 bg-primary-100 flex min-h-112.5 flex-col justify-between border p-8 lg:p-10",
-            )}
-          >
-            <div>
-              <div
-                className={cn(
-                  "bg-primary-500 flex size-20 items-center justify-center",
-                )}
-              >
-                <ActiveIcon className={cn("size-10 text-white")} />
-              </div>
-
-              <p
-                className={cn(
-                  "text-primary-700 mt-8 text-sm font-semibold tracking-wider uppercase",
-                )}
-              >
-                Step {activeStep + 1}
-              </p>
-
-              <h3 className={cn("text-primary-950 mt-2 text-4xl font-bold")}>
-                {howItWorksSteps[activeStep].title}
-              </h3>
-
-              <p className={cn("text-primary-800 mt-6 text-lg leading-8")}>
-                {howItWorksSteps[activeStep].description}
-              </p>
-            </div>
-
-            <div className={cn("border-primary-300 bg-primary-50 border p-6")}>
-              <div className={cn("flex items-center justify-between")}>
-                <span className={cn("text-primary-700 text-sm font-medium")}>
-                  Progress
-                </span>
-
-                <span className={cn("text-primary-950 font-semibold")}>
-                  {activeStep + 1}/4
-                </span>
-              </div>
-
-              <div className={cn("bg-primary-200 mt-4 h-2 overflow-hidden")}>
-                <div
-                  className={cn(
-                    "bg-primary-500 h-full transition-all duration-300",
-                  )}
-                  style={{
-                    width: `${((activeStep + 1) / howItWorksSteps.length) * 100}%`,
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Timeline */}
-          <div className={cn("relative")}>
-            <div
-              className={cn(
-                "bg-primary-300 absolute top-0 left-7 hidden h-full w-px lg:block",
-              )}
-            />
-
-            <div className={cn("flex flex-col gap-4")}>
-              {howItWorksSteps.map((step, index) => {
-                const Icon = step.icon;
-
-                const isActive = activeStep === index;
-
-                return (
-                  <button
-                    key={step.title}
-                    onMouseEnter={() => setActiveStep(index)}
-                    onFocus={() => setActiveStep(index)}
-                    onClick={() => setActiveStep(index)}
-                    className={cn(
-                      "border-primary-300 relative border text-left transition-all",
-                      isActive
-                        ? "bg-primary-200"
-                        : "bg-primary-100 hover:bg-primary-150",
-                    )}
-                  >
-                    <div className={cn("flex gap-6 p-6 lg:p-8")}>
-                      <div
-                        className={cn(
-                          "relative z-10 flex size-14 shrink-0 items-center justify-center",
-                          isActive
-                            ? "bg-primary-500 text-white"
-                            : "bg-primary-300 text-primary-800",
-                        )}
-                      >
-                        <Icon className={cn("size-6")} />
-                      </div>
-
-                      <div>
-                        <p
-                          className={cn(
-                            "text-primary-700 text-sm font-semibold",
-                          )}
-                        >
-                          STEP {index + 1}
-                        </p>
-
-                        <h3
-                          className={cn(
-                            "text-primary-950 mt-1 text-xl font-bold",
-                          )}
-                        >
-                          {step.title}
-                        </h3>
-
-                        <p className={cn("text-primary-800 mt-3")}>
-                          {step.description}
-                        </p>
-                      </div>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-export function FAQSection({ className, ...props }: ComponentProps<"section">) {
-  return (
-    <section
-      className={cn("bg-primary-500 py-24 text-white", className)}
-      {...props}
-    >
-      <div className={cn("mx-auto max-w-7xl px-4 lg:px-8")}>
-        <div className={cn("grid gap-12 lg:grid-cols-[0.8fr_1.2fr]")}>
-          <div>
-            <span
-              className={cn(
-                "border-primary-300 bg-primary-100 text-primary-500 inline-flex border px-4 py-2 text-sm font-medium",
-              )}
-            >
-              FAQ
-            </span>
-
-            <h2
-              className={cn(
-                "font-brand-secondary mt-6 text-5xl font-bold md:text-6xl",
-              )}
-            >
-              Frequently Asked Questions
-            </h2>
-
-            <p className={cn("mt-6 max-w-md text-lg text-white/80")}>
-              Everything you need to know about our housekeeping and cleaning
-              services.
-            </p>
-
-            <div
-              className={cn(
-                "border-primary-300 text-primary-500 bg-primary-100 mt-10 border p-6",
-              )}
-            >
-              <p className={cn("text-primary-400 text-sm")}>
-                Still have questions?
-              </p>
-
-              <p className={cn("mt-2 text-xl font-semibold")}>
-                Contact our support team.
-              </p>
-            </div>
-          </div>
-
-          <div
-            className={cn(
-              "border-primary-300 bg-primary-100 text-primary-500 border",
-            )}
-          >
-            <Accordion type="single" collapsible>
-              {faqs.map((faq, index) => (
-                <AccordionItem
-                  key={faq.question}
-                  value={`item-${index}`}
-                  className={cn("border-primary-300 border-b px-6")}
-                >
-                  <AccordionTrigger
-                    className={cn(
-                      "py-6 text-left text-lg font-semibold hover:no-underline",
-                    )}
-                  >
-                    {faq.question}
-                  </AccordionTrigger>
-
-                  <AccordionContent className={cn("text-primary-400 pb-6")}>
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-export function TestimonialsSection({
-  className,
-  ...props
-}: ComponentProps<"section">) {
-  const featured = testimonials.find((t) => t.featured)!;
-  const others = testimonials.filter((t) => !t.featured);
-
-  return (
-    <section className={cn("bg-secondary-50 py-24", className)} {...props}>
-      <div className={cn("mx-auto max-w-7xl px-4 lg:px-8")}>
-        <div className={cn("mb-16 text-center")}>
-          <span
-            className={cn(
-              "border-secondary-300 bg-secondary-100 inline-flex border px-4 py-2 text-sm font-medium",
-            )}
-          >
-            Customer Stories
-          </span>
-
-          <h2
-            className={cn(
-              "font-brand-secondary mt-6 text-5xl font-bold text-black md:text-6xl",
-            )}
-          >
-            What Customers Say
-          </h2>
-
-          <p className={cn("mx-auto mt-6 max-w-2xl text-lg text-black/70")}>
-            Trusted by homeowners and businesses across the region.
-          </p>
-        </div>
-
-        <div className={cn("grid gap-6 lg:grid-cols-[1.4fr_0.8fr]")}>
-          <div
-            className={cn(
-              "border-secondary-300 bg-secondary-100 relative border p-10 lg:p-14",
-            )}
-          >
-            <Quote
-              className={cn("text-primary-300 absolute top-8 right-8 size-20")}
-            />
-
-            <div className={cn("mb-8 flex gap-1")}>
-              {Array.from({ length: featured.rating }).map((_, index) => (
-                <Star
-                  key={index}
-                  className={cn("fill-primary-500 text-primary-500 size-5")}
-                />
-              ))}
-            </div>
-
-            <p
-              className={cn(
-                "text-secondary-950 text-2xl leading-relaxed font-medium",
-              )}
-            >
-              {featured.review}
-            </p>
-
-            <div className={cn("mt-10 flex items-center gap-4")}>
-              <div
-                className={cn(
-                  "bg-primary-500 flex size-14 items-center justify-center text-lg font-bold text-white",
-                )}
-              >
-                PS
-              </div>
-
-              <div>
-                <p className={cn("font-semibold")}>{featured.name}</p>
-
-                <p className={cn("text-sm text-black/60")}>
-                  {featured.location}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className={cn("flex flex-col gap-6")}>
-            {others.map((item) => (
-              <div
-                key={item.name}
-                className={cn(
-                  "border-secondary-300 hover:border-primary-400 border bg-white p-8 transition-all duration-300 hover:-translate-y-1",
-                )}
-              >
-                <div className={cn("mb-4 flex gap-1")}>
-                  {Array.from({ length: item.rating }).map((_, index) => (
-                    <Star
-                      key={index}
-                      className={cn("fill-primary-500 text-primary-500 size-4")}
-                    />
-                  ))}
-                </div>
-
-                <p className={cn("text-black/75")}>{item.review}</p>
-
-                <div className={cn("mt-6 border-t border-black/10 pt-4")}>
-                  <p className={cn("font-semibold")}>{item.name}</p>
-
-                  <p className={cn("text-sm text-black/60")}>{item.location}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-export function CTASection({ className, ...props }: ComponentProps<"section">) {
-  return (
-    <section
-      className={cn("bg-primary-500 py-24 text-white", className)}
-      {...props}
-    >
-      <div className={cn("mx-auto max-w-4xl px-4 text-center")}>
-        <h2 className={cn("font-brand-secondary text-6xl font-bold")}>
-          Ready For A Cleaner Space?
-        </h2>
-
-        <p className={cn("text-primary-50 mt-6")}>
-          Book professional housekeeping services today.
+          Professional Home Cleaning Services
         </p>
 
-        <Link
-          to="/contact"
+        <h1 className={cn(`text-2xl font-bold md:text-4xl lg:text-6xl`)}>
+          <span>
+            Caring For <br /> Better{" "}
+          </span>
+          <span className={cn(`text-secondary-500`)}>Living</span>
+        </h1>
+
+        <p className={cn(`max-w-80 lg:max-w-140`)}>
+          HandyCh brings professional cleaning services to your home with care,
+          quality and trust. We make your space cleaner, healthier and more
+          comfortable.
+        </p>
+
+        <div
+          className={cn(`flex flex-col gap-2 pt-4 md:flex-row md:pt-6 lg:pt-8`)}
+        >
+          <a
+            href={`https://wa.me/${platformMobileNo}`}
+            target="_blank"
+            className={cn(
+              "dark:border-secondary-500 dark:bg-secondary-500 dark:text-primary-500 flex max-w-max items-center gap-2 rounded-md border px-4 py-3 text-sm font-semibold transition-colors",
+            )}
+          >
+            Book On Whatsapp
+            <FaWhatsapp className={cn("size-5")} />
+          </a>
+          <Link
+            to={`/`}
+            hash={"services"}
+            className={cn(
+              "flex max-w-max items-center gap-2 rounded-md border px-4 py-3 text-sm font-semibold transition-colors",
+            )}
+          >
+            Explore Services
+            <ArrowRight className={cn("text-secondary-500 size-5")} />
+          </Link>
+        </div>
+
+        <div className={cn(`flex flex-wrap gap-4 pt-4 lg:pt-6`)}>
+          <span className={cn(`flex items-center gap-1 text-sm`)}>
+            <span>
+              <Shield className={cn(`text-secondary-500 size-4`)} />
+            </span>
+            <span>Verified professional</span>
+          </span>
+          <span className={cn(`flex items-center gap-1 text-sm`)}>
+            <span>
+              <DollarSign className={cn(`text-secondary-500 size-4`)} />
+            </span>
+            <span>Affordable Pricing</span>
+          </span>
+          <span className={cn(`flex items-center gap-1 text-sm`)}>
+            <span>
+              <CheckCircle className={cn(`text-secondary-500 size-4`)} />
+            </span>
+            <span>Satisfaction Guaranteed</span>
+          </span>
+        </div>
+      </div>
+      <div
+        aria-hidden
+        data-placeholder
+        className={cn(
+          `-mx-4 max-md:-translate-y-30 sm:-mx-10 md:-mx-20 lg:-mx-24`,
+        )}
+      >
+        {/* <Image
+          src="/images/home-hero-sm.jpg"
+          alt=""
+          layout="fullWidth"
           className={cn(
-            "bg-secondary-50 text-primary-700 mt-8 inline-flex px-6 py-4 font-semibold",
+            `w-full mask-[linear-gradient(to_bottom,transparent_10%,black_20%)] md:hidden`,
+          )}
+        /> */}
+      </div>
+    </section>
+  );
+}
+
+export function OurService({ className, ...props }: ComponentProps<"section">) {
+  return (
+    <section
+      className={cn(
+        `overflow-clip py-10 md:py-20`,
+        `bg-primary-50 text-primary-500`,
+        `px-4 sm:px-10 md:px-20 lg:px-24`,
+        className,
+      )}
+      id="services"
+      {...props}
+    >
+      <p
+        className={cn(
+          `text-secondary-500 text-center text-base uppercase md:text-lg`,
+        )}
+      >
+        Our Service
+      </p>
+      <div
+        className={cn(`flex flex-wrap items-center justify-center gap-4 pb-10`)}
+      >
+        <div className={cn(`h-20 w-40 bg-red-300 lg:h-30 lg:w-60`)}>
+          <Image
+            src={"/images/our-service-main-image.jpg"}
+            alt=""
+            layout="fullWidth"
+            className={cn(`inset-0 h-full w-full object-cover`)}
+          />
+        </div>
+        <div>
+          <h2 className={cn(`text-xl font-bold md:text-2xl lg:text-4xl`)}>
+            <span>Care for Your Home, </span>
+            <br />
+            <span className={cn(`text-secondary-500`)}>We've Got You</span>
+          </h2>
+
+          <p>
+            <span>Thoughtful cleaing solution for every place you live in</span>
+          </p>
+        </div>
+      </div>
+
+      {/* <div className={cn(`pb-10`)}>
+        <p
+          className={cn(
+            `text-secondary-500 text-center text-base uppercase md:text-lg`,
           )}
         >
-          Book Service
-        </Link>
+          Our Service
+        </p>
+
+        <h2
+          className={cn(
+            `text-center text-xl font-bold md:text-2xl lg:text-4xl`,
+          )}
+        >
+          <span className={cn(`text-primary-500`)}>Care for Your Home, </span>
+          <span className={cn(`text-secondary-500`)}>We've Got You</span>
+        </h2>
+
+        <p className={cn(`pt-4 text-center`)}>
+          Thoughtful cleaing solution for every place you live in
+        </p>
+
+        <div className={cn(`pt-6`)}>
+          <div
+            className={cn(`bg-secondary-500 m-auto h-0.5 w-full max-w-20`)}
+          />
+        </div>
+      </div> */}
+
+      <div
+        className={cn(`grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4`)}
+      >
+        {/* <div className={cn(`relative h-full w-full`)}>
+          <Image
+            src="/images/featured-services.jpg"
+            alt="our-service-main-image"
+            layout="fullWidth"
+            className={cn(`absolute inset-0 h-full w-full`)}
+          />
+        </div> */}
+
+        {offeredServices.map(
+          (
+            {
+              chargesStartsFrom,
+              coveredServices,
+              notCoveredServices,
+              serviceName,
+              imageSource,
+              iconSource,
+            },
+            offeredServicesIdx,
+          ) => {
+            return (
+              <div
+                key={serviceName}
+                className={cn(`overflow-clip rounded-2xl shadow`)}
+              >
+                <div
+                  className={cn(
+                    `bg-primary-500 text-primary-50 flex items-start gap-3 px-4 py-6`,
+                  )}
+                >
+                  <div className={cn(`aspect-square size-10 bg-red-300`)}>
+                    <Image
+                      src={iconSource}
+                      alt=""
+                      layout="fullWidth"
+                      className={cn(`w-full object-cover`)}
+                    />
+                  </div>
+                  <div className={cn(`grow`)}>
+                    <div className={cn(`text-xl font-semibold md:text-2xl`)}>
+                      {serviceName}
+                    </div>
+                    <div>
+                      <span className={cn(`text-primary-50/80 text-sm`)}>
+                        Starting from{" "}
+                      </span>
+                      <br />
+                      <span
+                        className={cn(
+                          `text-secondary-500 text-2xl font-semibold md:text-4xl`,
+                        )}
+                      >
+                        ₹ {chargesStartsFrom}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className={cn(`aspect-video bg-red-300`)}>
+                  <Image
+                    src={imageSource}
+                    alt=""
+                    layout="fullWidth"
+                    className={cn(`w-full object-cover`)}
+                  />
+                </div>
+                <div className={cn(`px-4 py-4`)}>
+                  {offeredServicesIdx === 2 && (
+                    <div className={cn(`flex gap-1 *:basis-1/2`)}>
+                      <div>
+                        <div
+                          className={cn(
+                            `flex w-full items-center justify-center rounded-md bg-green-500/10 px-4 py-1`,
+                          )}
+                        >
+                          Basic clean
+                        </div>
+                        {coveredServices.map((service) => {
+                          if (!service.startsWith("Basic-clean")) return null;
+                          return (
+                            <li
+                              key={service}
+                              className={cn(`flex items-start gap-1`)}
+                            >
+                              <span className={cn(`mt-1.5 inline-block`)}>
+                                <Check
+                                  className={cn(
+                                    `bg-primary-500 text-primary-50 size-4 rounded-full p-0.5`,
+                                  )}
+                                />
+                              </span>
+                              <span>{service.split("Basic-clean ")[1]}</span>
+                            </li>
+                          );
+                        })}
+                      </div>
+                      <div>
+                        <div
+                          className={cn(
+                            `flex w-full items-center justify-center rounded-md bg-red-500/10 px-4 py-1`,
+                          )}
+                        >
+                          Deep clean
+                        </div>
+                        {coveredServices.map((service) => {
+                          if (!service.startsWith("Deep-clean")) return null;
+                          return (
+                            <li
+                              key={service}
+                              className={cn(`flex items-start gap-1`)}
+                            >
+                              <span className={cn(`mt-1.5 inline-block`)}>
+                                <Check
+                                  className={cn(
+                                    `bg-primary-500 text-primary-50 size-4 rounded-full p-0.5`,
+                                  )}
+                                />
+                              </span>
+                              <span>{service.split("Deep-clean ")[1]}</span>
+                            </li>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                  {offeredServicesIdx !== 2 &&
+                    coveredServices.map((service) => {
+                      return (
+                        <li
+                          key={service}
+                          className={cn(`flex items-start gap-1`)}
+                        >
+                          <span className={cn(`mt-1.5 inline-block`)}>
+                            <Check
+                              className={cn(
+                                `bg-primary-500 text-primary-50 size-4 rounded-full p-0.5`,
+                              )}
+                            />
+                          </span>
+                          <span>{service}</span>
+                        </li>
+                      );
+                    })}
+                  {notCoveredServices.map((service) => {
+                    return (
+                      <li
+                        key={service}
+                        className={cn(`flex items-start gap-1`)}
+                      >
+                        <span className={cn(`mt-1.5 inline-block`)}>
+                          <X
+                            className={cn(
+                              `bg-primary-500 text-primary-50 size-4 rounded-full p-0.5`,
+                            )}
+                          />
+                        </span>
+                        <span>{service}</span>
+                      </li>
+                    );
+                  })}
+                </div>
+                <div className={cn(`px-4 pb-6`)}>
+                  <a
+                    href={`/`}
+                    className={cn(
+                      "flex items-center justify-center gap-2 rounded-md border px-4 py-3 text-sm font-semibold transition-colors",
+                    )}
+                  >
+                    Book on Whatsapp
+                    <FaWhatsapp className={cn("size-5")} />
+                  </a>
+                </div>
+              </div>
+            );
+          },
+        )}
+
+        <div className={cn(`px-4 py-6 shadow`)}>
+          <div className={cn(`flex gap-2`)}>
+            <div
+              className={cn(
+                `bg bg-primary-500 aspect-square size-14 overflow-clip rounded-lg`,
+              )}
+            >
+              <Image
+                src={"/images/more-care-coming-soon-icon.jpg"}
+                layout="fullWidth"
+                alt=""
+              />
+            </div>
+            <div className={cn(`text-xl font-bold`)}>
+              More Care <br /> Coming Soon
+            </div>
+          </div>
+          <ul className={cn(`pt-6`)}>
+            {upcomingServices.map(({ serviceName }) => {
+              return (
+                <li key={serviceName} className={cn(`flex flex-col`)}>
+                  <span className={cn(`flex items-center gap-2 text-sm`)}>
+                    <span>
+                      <ChevronRight className={cn(`size-3`)} />
+                    </span>
+                    <span>{serviceName}</span>
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+          <div className={cn(`mt-10 aspect-9/10 w-full`)}>
+            <Image
+              src={"/images/more-care-coming-soon.jpg"}
+              alt=""
+              layout="fullWidth"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function WhyTrustHanych({
+  className,
+  ...props
+}: ComponentProps<"section">) {
+  return (
+    <section
+      className={cn(
+        `py-10 md:py-20`,
+        `px-4 sm:px-10 md:px-20 lg:px-24`,
+        className,
+      )}
+      id="why-handych"
+      {...props}
+    >
+      <div>
+        <h2
+          className={cn(
+            `text-center text-xl font-bold md:text-2xl lg:text-4xl`,
+          )}
+        >
+          <span>Why Families Trust </span>
+          <span className={cn(`text-secondary-500`)}>HandyCh</span>
+        </h2>
+
+        <p className={cn(`pt-4 text-center`)}>
+          Every visit is built on care, quality, and respect for your home.
+        </p>
+
+        <div className={cn(`pt-6`)}>
+          <div
+            className={cn(`bg-secondary-500 m-auto h-0.5 w-full max-w-20`)}
+          />
+        </div>
+      </div>
+
+      <div className={cn(`flex w-full flex-wrap gap-4 pt-10`)}>
+        <div className={cn(`relative min-w-60 flex-2`)}>
+          <Image
+            src="/images/why-us-main-image.jpg"
+            alt="our-service-main-image"
+            layout="fullWidth"
+          />
+        </div>
+        {whyTrustHandych.map(({ title, description, iconSource }) => {
+          return (
+            <div
+              key={title}
+              className={cn(
+                `flex min-w-30 flex-1 flex-col items-center justify-center rounded-md border border-white/10 bg-[#001332] px-2 py-8`,
+              )}
+            >
+              <div className={cn(`relative size-10 bg-red-300`)}>
+                <Image src={iconSource} layout="fullWidth" alt="" />
+              </div>
+              <h3 className={cn(`pt-2 text-center text-sm font-semibold`)}>
+                {title}
+              </h3>
+              <div className={cn(`p-2`)}>
+                <div className={cn(`bg-secondary-500 h-0.5 w-6`)}></div>
+              </div>
+              <p className={cn(`text-center text-sm`)}>{description}</p>
+            </div>
+          );
+        })}
+      </div>
+
+      <div
+        className={cn(
+          `m-auto mt-10 flex max-w-max flex-wrap items-center gap-3 rounded-md border border-white/10 bg-white/3 px-4 py-2`,
+        )}
+      >
+        <div className={cn(`size-10 bg-red-300`)}>
+          <Image
+            src={"/images/why-trust-us/bottom-icon.jpg"}
+            alt=""
+            layout="fullWidth"
+            className={cn(`inset-0 h-full w-full object-cover`)}
+          />
+        </div>
+        <p>
+          <span>We don't just clean homes, </span>
+          <span className={cn(`text-secondary-500`)}>we care </span>
+          <span>for them </span>
+          <span className={cn(`text-secondary-500`)}>like our own.</span>
+        </p>
+        <p className={cn(`font-brand-secondary text-2xl`)}>
+          <span>- That's the </span>
+          <span className={cn(`text-secondary-500`)}>HandyCh </span>
+          <span>promise</span>
+        </p>
+      </div>
+    </section>
+  );
+}
+
+export function OurFounders({
+  className,
+  ...props
+}: ComponentProps<"section">) {
+  return (
+    <section
+      className={cn(
+        `py-10 md:py-20`,
+        `bg-primary-50 text-primary-500`,
+        `px-4 sm:px-10 md:px-20 lg:px-24`,
+      )}
+      id="about"
+      {...props}
+    >
+      <div className={cn(`space-y-4`)}>
+        <p className={cn(`text-center uppercase`)}>Our Founders</p>
+        <h2
+          className={cn(
+            `text-center text-xl font-bold md:text-2xl lg:text-4xl`,
+          )}
+        >
+          <span>The People Behind </span>
+          <span className={cn(`text-secondary-500`)}>HandyCh</span>
+        </h2>
+
+        <p className={cn(`text-center text-sm md:text-base`)}>
+          Driven by passion, experience and the vision to create cleaner, better
+          living for everyone.
+        </p>
+      </div>
+
+      <div className={cn(`mt-10 grid gap-4 xl:grid-cols-2`)}>
+        <div className={cn(`grid grid-cols-1 gap-4 xl:grid-cols-2`)}>
+          <div
+            className={cn(
+              `relative h-full overflow-clip rounded-2xl max-xl:aspect-video`,
+            )}
+          >
+            <Image
+              src="/images/founder-sourav.jpg"
+              alt="our-service-main-image"
+              layout="fullWidth"
+              className={cn(
+                `absolute h-full w-full overflow-clip object-cover`,
+              )}
+            />
+          </div>
+          <div className={cn(`space-y-1`)}>
+            <h2 className={cn(`text-2xl font-bold`)}>Sourav Ghosh</h2>
+            <p className={cn(`text-secondary-500 font-semibold`)}>Founder</p>
+            <div className={cn(`bg-secondary-500 h-0.5 w-10`)} />
+            <div
+              className={cn(
+                `relative space-y-3 pt-8 pl-10 text-sm md:text-base`,
+              )}
+            >
+              <span
+                className={cn(
+                  `text-secondary-500 absolute top-0 left-0 -translate-x-4 font-mono text-5xl tracking-[-20px] md:text-7xl`,
+                )}
+              >
+                &lsquo;&lsquo;
+              </span>
+              <p>
+                With years of experience in the hospitality industry across
+                India and international cruise lines, I have built my career on
+                exceptional service, meticulous attention to detail, and
+                world-class cleanliness standards.
+              </p>
+              <p>
+                As a Cruise Butler managing luxury suites and personalized guest
+                experiences, I learned that true cleanliness is about creating
+                comfort, trust, and peace of mind-values that define every
+                service we deliver at Handych.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className={cn(`grid grid-cols-1 gap-4 xl:grid-cols-2`)}>
+          <div
+            className={cn(
+              `relative h-full overflow-clip rounded-2xl max-xl:aspect-video`,
+            )}
+          >
+            <Image
+              src="/images/founder-rana.jpg"
+              alt="our-service-main-image"
+              layout="fullWidth"
+              className={cn(
+                `absolute h-full w-full overflow-clip object-cover`,
+              )}
+            />
+          </div>
+          <div className={cn(`space-y-1`)}>
+            <h2 className={cn(`text-2xl font-bold`)}>Rana Sarkar</h2>
+            <p className={cn(`text-secondary-500 font-semibold`)}>Co-Founder</p>
+            <div className={cn(`bg-secondary-500 h-0.5 w-10`)} />
+            <div
+              className={cn(
+                `relative space-y-3 pt-8 pl-10 text-sm md:text-base`,
+              )}
+            >
+              <span
+                className={cn(
+                  `text-secondary-500 absolute top-0 left-0 -translate-x-4 font-mono text-5xl tracking-[-20px] md:text-7xl`,
+                )}
+              >
+                &lsquo;&lsquo;
+              </span>
+              <p>
+                I enjoy understanding how people live and what small challenges
+                they face every day.
+              </p>
+              <p>
+                At HandyCh, I spend time talking with residents, learning from
+                their experiences, and making sure every service we introduce
+                solves a real problem-not just an assumed one.
+              </p>
+              <p>My belief is simple:</p>
+              <p>The best services are built by listening first.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function OurPurpose({ className, ...props }: ComponentProps<"section">) {
+  return (
+    <section
+      className={cn(
+        `py-10 md:py-20`,
+        `px-4 sm:px-10 md:px-20 lg:px-24`,
+        className,
+      )}
+      id="our-purpose"
+      {...props}
+    >
+      <div className={cn(`flex flex-wrap items-center justify-center gap-4`)}>
+        <div className={cn(`h-20 w-40 bg-red-300 lg:h-30 lg:w-60`)}>
+          <Image
+            src={"/images/our-purpose/our-purpose-section-mascot.jpg"}
+            alt=""
+            layout="fullWidth"
+            className={cn(`inset-0 h-full w-full object-cover`)}
+          />
+        </div>
+        <div>
+          <h2 className={cn(`text-xl font-bold md:text-2xl lg:text-4xl`)}>
+            <span>Our purpose, </span>
+            <br />
+            <span className={cn(`text-secondary-500`)}>
+              Your peace of mind.
+            </span>
+          </h2>
+
+          <p>
+            <span>We clean homes, We care for people, </span>
+            <span className={cn(`text-secondary-500`)}>We build trust.</span>
+          </p>
+        </div>
+      </div>
+
+      <div className={cn(`mt-10 flex flex-wrap justify-center gap-4`)}>
+        <div
+          className={cn(
+            `basis-100 space-y-2 rounded-xl border border-white/10 bg-white/3 p-4`,
+          )}
+        >
+          <div className={cn(`flex items-center gap-6`)}>
+            <div className={cn(`size-16 bg-red-300`)}>
+              <Image
+                src={
+                  "/images/our-purpose/our-purpose-section-image-our-vision-icon.jpg"
+                }
+                alt=""
+                layout="fullWidth"
+                className={cn(`inset-0 h-full w-full object-cover`)}
+              />
+            </div>
+            <div>
+              <h3 className={cn(`text-xl font-semibold md:text-2xl`)}>
+                Our Vission
+              </h3>
+              <div className={cn(`bg-secondary-500 mt-2 h-0.5 w-10`)} />
+            </div>
+          </div>
+          <div>
+            <p>
+              To become India's most trsted home service brand, by setting new
+              standards in quality, professionalism and customer satisfaction,
+              starting from Kalyani and expanding across the country.
+            </p>
+          </div>
+          <div className={cn(`aspect-video w-full bg-red-300`)}>
+            <Image
+              src={
+                "/images/our-purpose/our-purpose-section-image-our-mission.jpg"
+              }
+              alt=""
+              layout="fullWidth"
+              className={cn(`inset-0 h-full w-full object-cover`)}
+            />
+          </div>
+        </div>
+        <div
+          className={cn(
+            `basis-100 space-y-2 rounded-xl border border-white/10 bg-white/3 p-4`,
+          )}
+        >
+          <div className={cn(`flex items-center gap-6`)}>
+            <div className={cn(`size-16 bg-red-300`)}>
+              <Image
+                src={
+                  "/images/our-purpose/our-purpose-section-image-our-vision-mission.jpg"
+                }
+                alt=""
+                layout="fullWidth"
+                className={cn(`inset-0 h-full w-full object-cover`)}
+              />
+            </div>
+            <div>
+              <h3 className={cn(`text-xl font-semibold md:text-2xl`)}>
+                Our Mission
+              </h3>
+              <div className={cn(`bg-secondary-500 mt-2 h-0.5 w-10`)} />
+            </div>
+          </div>
+          <div>
+            <p>
+              To become India's most trsted home service brand, by setting new
+              standards in quality, professionalism and customer satisfaction,
+              starting from Kalyani and expanding across the country.
+            </p>
+          </div>
+          <div className={cn(`aspect-video w-full bg-red-300`)}>
+            <Image
+              src={
+                "/images/our-purpose/our-purpose-section-image-our-vision.jpg"
+              }
+              alt=""
+              layout="fullWidth"
+              className={cn(`inset-0 h-full w-full object-cover`)}
+            />
+          </div>
+        </div>
+        <div
+          className={cn(
+            `basis-100 space-y-2 rounded-xl border border-white/10 bg-white/3 p-4`,
+          )}
+        >
+          <div className={cn(`flex items-center gap-6`)}>
+            <div className={cn(`size-16 bg-red-300`)}>
+              <Image
+                src={
+                  "/images/our-purpose/our-purpose-section-image-our-promise.jpg"
+                }
+                alt=""
+                layout="fullWidth"
+                className={cn(`inset-0 h-full w-full object-cover`)}
+              />
+            </div>
+            <div>
+              <h3 className={cn(`text-xl font-semibold md:text-2xl`)}>
+                Our Promise
+              </h3>
+              <div className={cn(`bg-secondary-500 mt-2 h-0.5 w-10`)} />
+            </div>
+          </div>
+          <div>
+            <ul
+              className={cn(
+                `*:border-b *:border-b-white/20 *:py-3 *:last:border-0`,
+              )}
+            >
+              <li className={cn(`flex items-start gap-2 text-sm`)}>
+                <span className={cn(`mt-0.5 inline-block`)}>
+                  <CheckCircle className={cn(`text-secondary-500 size-4`)} />
+                </span>
+                <span className={cn(``)}>
+                  We will treat your home with care and respect .
+                </span>
+              </li>
+              <li className={cn(`flex items-start gap-2 text-sm`)}>
+                <span className={cn(`mt-0.5 inline-block`)}>
+                  <CheckCircle className={cn(`text-secondary-500 size-4`)} />
+                </span>
+                <span className={cn(``)}>
+                  We will be honest, transparent and fair in everything we do.
+                </span>
+              </li>
+              <li className={cn(`flex items-start gap-2 text-sm`)}>
+                <span className={cn(`mt-0.5 inline-block`)}>
+                  <CheckCircle className={cn(`text-secondary-500 size-4`)} />
+                </span>
+                <span className={cn(``)}>
+                  Who will deliver quality service every single time?
+                </span>
+              </li>
+              <li className={cn(`flex items-start gap-2 text-sm`)}>
+                <span className={cn(`mt-0.5 inline-block`)}>
+                  <CheckCircle className={cn(`text-secondary-500 size-4`)} />
+                </span>
+                <span className={cn(``)}>
+                  We will listen learn and keep improving for you.
+                </span>
+              </li>
+              <li className={cn(`flex items-start gap-2 text-sm`)}>
+                <span className={cn(`mt-0.5 inline-block`)}>
+                  <CheckCircle className={cn(`text-secondary-500 size-4`)} />
+                </span>
+                <span className={cn(``)}>
+                  Who will be there when you need us?
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div
+            className={cn(
+              `font-brand-secondary text-secondary-500 text-center`,
+            )}
+          >
+            <p> Your trust is our biggest responsibility</p>
+          </div>
+        </div>
       </div>
     </section>
   );
